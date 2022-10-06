@@ -6,7 +6,7 @@ from .serializers import ProductSerializer
 from .models import Product
 from products import serializers
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def products_list(request):
 
     if request.method == 'GET':
