@@ -9,4 +9,12 @@ from products import serializers
 @api_view(['GET'])
 def products_list(request):
 
-    return Response('ok')
+    if request.method == 'GET':
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)    
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = ProductSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
